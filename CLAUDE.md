@@ -14,8 +14,23 @@ A bingo-style goal tracker for quarterly goals. Create 5x5 bingo cards with your
 ## Project Structure
 
 ```
+design/
+└── logo/                   # Logo source files
+    ├── logo.svg            # Main logo (light backgrounds)
+    ├── logo-dark.svg       # Dark background variant
+    ├── logo-icon.svg       # Icon only (dabber with checkmark)
+    ├── logo-concepts.html  # Interactive concept explorer
+    └── logo-final.html     # Final version with tunable values
+
+public/
+├── logo-light.png          # Production logo (transparent)
+├── logo-dark.png           # Dark variant
+└── logo-icon.png           # Icon variant
+
 src/
 ├── app/                    # Next.js App Router pages
+│   ├── icon.png           # Favicon (auto-detected by Next.js)
+│   ├── apple-icon.png     # Apple touch icon
 │   ├── api/               # API routes
 │   │   ├── cards/         # Card CRUD + goals endpoint
 │   │   ├── goals/[id]/    # Goal completion/edit/delete
@@ -148,3 +163,21 @@ The `Category` type is defined in **two places** - keep them in sync:
 2. `src/lib/csv-parser.ts` - Local type + `VALID_CATEGORIES` array
 
 When adding/removing categories, update both files.
+
+## Logo & Branding
+
+The logo features "BINGOALS" with the "O" as a red bingo dabber mark with a checkmark cutout in negative space.
+
+**Logo effect parameters** (in `design/logo/logo-final.html`):
+- Stipple Amount: 2.3
+- Stipple Frequency: 0.140
+- Watercolor Intensity: 0.53
+- Watercolor Frequency: 0.040
+- Edge Scale: 5.80
+
+**To regenerate PNGs:**
+1. Open `design/logo/logo.svg` in GIMP/Inkscape
+2. Export as PNG with transparent background
+3. Save to `public/logo-light.png`
+
+The logo uses SVG filters (`feTurbulence`, `feDisplacementMap`) to create a distressed ink effect that mimics real bingo dabber marks.
