@@ -47,3 +47,6 @@ prisma/*.db-journal
 .idea
 .vscode
 .claude/
+
+# Playwright MCP temp files
+.playwright-mcp/

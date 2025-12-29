@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BINGOALS Logo - Final</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #faf9f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 40px;
+    }
+    h2 {
+      color: #666;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: -40px;
+    }
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 800;
+      letter-spacing: -2px;
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+    }
+    .logo.small { font-size: 36px; }
+    .logo.tiny { font-size: 24px; }
+    .bing, .oals { color: #1a1a1a; }
+
+    .dab {
+      width: 78px;
+      height: 78px;
+      background: radial-gradient(circle at 40% 40%, #dc2626 0%, #b91c1c 50%, #991b1b 80%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#final-filter);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
+    }
+    .logo.small .dab {
+      width: 39px;
+      height: 39px;
+      margin: 0 -7px;
+    }
+    .logo.tiny .dab {
+      width: 26px;
+      height: 26px;
+      margin: 0 -5px;
+    }
+
+    /* Dark background variant */
+    .dark-bg {
+      background: #1a1a2e;
+      padding: 60px 80px;
+      border-radius: 16px;
+    }
+    .dark-bg .bing, .dark-bg .oals { color: #fff; }
+
+    /* Icon only */
+    .icon {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 40% 40%, #dc2626 0%, #b91c1c 50%, #991b1b 80%);
+      border-radius: 50%;
+      filter: url(#final-filter);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
+    }
+    .icon.small { width: 48px; height: 48px; }
+    .icon.tiny { width: 32px; height: 32px; }
+
+    .row {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .values {
+      background: #1a1a1a;
+      color: #4ade80;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Filters -->
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <!-- Final filter with your values -->
+      <filter id="final-filter" x="-15%" y="-15%" width="130%" height="130%">
+        <!-- Stipple: binary holes -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.140" numOctaves="3" result="stipple-noise" seed="2"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
+          <!-- stippleAmount: 2.3 → 0.00 0.00 0.70 1.00 1.00 1.00 1.00 1.00 1.00 1.00 -->
+          <feFuncA type="discrete" tableValues="0.00 0.00 0.70 1.00 1.00 1.00 1.00 1.00 1.00 1.00"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+
+        <!-- Watercolor: opacity variation -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.040" numOctaves="3" result="wc-noise" seed="20"/>
+        <feColorMatrix in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.53 0.47" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+
+        <!-- Edge roughness -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="edge-noise" seed="5"/>
+        <feDisplacementMap in="combined" in2="edge-noise" scale="5.80" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- Checkmark cutout mask -->
+      <mask id="check-cutout-mask" maskContentUnits="objectBoundingBox">
+        <circle cx="0.5" cy="0.5" r="0.5" fill="white"/>
+        <polyline
+          points="0.22,0.5 0.42,0.7 0.78,0.3"
+          stroke="black"
+          stroke-width="0.12"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+        />
+      </mask>
+    </defs>
+  </svg>
+
+  <h2>Light Background</h2>
+  <div class="logo-container">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Dark Background</h2>
+  <div class="logo-container">
+    <div class="dark-bg">
+      <div class="logo">
+        <span class="bing">BING</span>
+        <div class="dab"></div>
+        <span class="oals">ALS</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Smaller Sizes</h2>
+  <div class="row">
+    <div class="logo small">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+    <div class="logo tiny">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Icon Only</h2>
+  <div class="row">
+    <div class="icon"></div>
+    <div class="icon small"></div>
+    <div class="icon tiny"></div>
+  </div>
+
+  <h2>Final Values</h2>
+  <div class="values">stippleAmount: 2.3
+stippleFreq: 0.140
+wcIntensity: 0.53
+wcFreq: 0.040
+edgeScale: 5.80
+
+/* Threshold table */
+0.00 0.00 0.70 1.00 1.00 1.00 1.00 1.00 1.00 1.00
+
+/* WC matrix alpha */
+0.53 0.47</div>
+
+</body>
+</html>

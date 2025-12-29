@@ -350,6 +350,103 @@
       filter: url(#ink-fade-medium);
     }
 
+    /* Concept 11: Interactive / Tunable */
+    .concept-11 { background: #faf9f7; flex-direction: column; gap: 40px; }
+    .concept-11 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
+    }
+    .concept-11 .bing { color: #1a1a1a; }
+    .concept-11 .oals { color: #1a1a1a; }
+    .concept-11 .dab {
+      width: 78px;
+      height: 78px;
+      background: radial-gradient(circle at 40% 40%, #dc2626 0%, #b91c1c 50%, #991b1b 80%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#tunable-filter);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
+    }
+    .concept-11.check-on-top .dab {
+      -webkit-mask: none;
+      mask: none;
+    }
+    .concept-11 .checkmark {
+      display: none;
+    }
+    .concept-11.check-on-top .checkmark {
+      display: block;
+      width: 44px;
+      height: 44px;
+      stroke: #7f1d1d;
+      stroke-width: 6;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#tunable-check-filter);
+    }
+    .controls {
+      display: grid;
+      grid-template-columns: 200px 1fr 60px;
+      gap: 12px 20px;
+      align-items: center;
+      background: #fff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+    .controls label {
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .controls input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+    }
+    .controls .value {
+      color: #333;
+      font-size: 13px;
+      font-family: monospace;
+      text-align: right;
+      width: 60px;
+      padding: 4px 6px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+    }
+    .controls .value:focus {
+      outline: none;
+      border-color: #3b82f6;
+      background: #fff;
+    }
+    .controls select {
+      grid-column: 2 / 4;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+    }
+    .output-values {
+      background: #1a1a1a;
+      color: #4ade80;
+      padding: 16px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre;
+      width: 100%;
+      max-width: 500px;
+    }
+
     /* Standalone Icon */
     .icon-row {
       display: flex;
@@ -452,39 +549,77 @@
         <feComposite in="wobbly" in2="hole-mask" operator="in"/>
       </filter>
 
-      <!-- STIPPLE: Light - small gaps, grainy texture -->
-      <filter id="ink-fade-light" x="-15%" y="-15%" width="130%" height="130%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="4" result="noise" seed="2"/>
-        <!-- Threshold to create binary holes -->
-        <feComponentTransfer in="noise" result="thresh">
+      <!-- COMBINED: Light - subtle gaps + translucent variation -->
+      <filter id="ink-fade-light" x="-10%" y="-10%" width="120%" height="120%">
+        <!-- Stipple: binary holes -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="3" result="stipple-noise" seed="2"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
+          <feFuncA type="discrete" tableValues="0 1 1 1 1 1 1 1 1 1"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+        <!-- Watercolor: opacity variation -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="wc-noise" seed="20"/>
+        <feColorMatrix in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.4 0.5" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+        <!-- Edge roughness -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="edge-noise" seed="5"/>
+        <feDisplacementMap in="combined" in2="edge-noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- COMBINED: Medium - more gaps + stronger translucency -->
+      <filter id="ink-fade-medium" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.12" numOctaves="3" result="stipple-noise" seed="4"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
+          <feFuncA type="discrete" tableValues="0 0 1 1 1 1 1 1 1 1"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" result="wc-noise" seed="25"/>
+        <feColorMatrix in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0.4" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="edge-noise" seed="8"/>
+        <feDisplacementMap in="combined" in2="edge-noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- COMBINED: Heavy - noticeable gaps + varied translucency -->
+      <filter id="ink-fade-heavy" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="4" result="stipple-noise" seed="6"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
           <feFuncA type="discrete" tableValues="0 0 0 1 1 1 1 1 1 1"/>
         </feComponentTransfer>
-        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
-        <!-- Slight edge roughness -->
-        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="edge-noise" seed="5"/>
-        <feDisplacementMap in="stippled" in2="edge-noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" result="wc-noise" seed="30"/>
+        <feColorMatrix in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.55 0.35" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="edge-noise" seed="10"/>
+        <feDisplacementMap in="combined" in2="edge-noise" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
 
-      <!-- STIPPLE: Medium - more gaps, visible missing spots -->
-      <filter id="ink-fade-medium" x="-15%" y="-15%" width="130%" height="130%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="5" result="noise" seed="4"/>
-        <feComponentTransfer in="noise" result="thresh">
-          <feFuncA type="discrete" tableValues="0 0 0 0 1 1 1 1 1 1"/>
+      <!-- TUNABLE: Interactive filter for Concept 11 -->
+      <filter id="tunable-filter" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence id="stipple-turb" type="fractalNoise" baseFrequency="0.12" numOctaves="3" result="stipple-noise" seed="2"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
+          <feFuncA id="stipple-thresh" type="discrete" tableValues="0 0 1 1 1 1 1 1 1 1"/>
         </feComponentTransfer>
-        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
-        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" result="edge-noise" seed="8"/>
-        <feDisplacementMap in="stippled" in2="edge-noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+        <feTurbulence id="wc-turb" type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="wc-noise" seed="20"/>
+        <feColorMatrix id="wc-matrix" in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.5 0.4" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+        <feTurbulence id="edge-turb" type="fractalNoise" baseFrequency="0.04" numOctaves="2" result="edge-noise" seed="5"/>
+        <feDisplacementMap id="edge-disp" in="combined" in2="edge-noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
 
-      <!-- STIPPLE: Heavy - lots of gaps, worn stamp look -->
-      <filter id="ink-fade-heavy" x="-20%" y="-20%" width="140%" height="140%">
-        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="6" result="noise" seed="6"/>
-        <feComponentTransfer in="noise" result="thresh">
-          <feFuncA type="discrete" tableValues="0 0 0 0 0 1 1 1 1 1"/>
+      <!-- TUNABLE: Filter for checkmark when drawn on top -->
+      <filter id="tunable-check-filter" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence id="check-stipple-turb" type="fractalNoise" baseFrequency="0.15" numOctaves="3" result="stipple-noise" seed="12"/>
+        <feComponentTransfer in="stipple-noise" result="stipple-mask">
+          <feFuncA id="check-stipple-thresh" type="discrete" tableValues="0 1 1 1 1 1 1 1 1 1"/>
         </feComponentTransfer>
-        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
-        <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" result="edge-noise" seed="10"/>
-        <feDisplacementMap in="stippled" in2="edge-noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+        <feComposite in="SourceGraphic" in2="stipple-mask" operator="in" result="stippled"/>
+        <feTurbulence id="check-wc-turb" type="fractalNoise" baseFrequency="0.05" numOctaves="3" result="wc-noise" seed="30"/>
+        <feColorMatrix id="check-wc-matrix" in="wc-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.4 0.5" result="wc-alpha"/>
+        <feComposite in="stippled" in2="wc-alpha" operator="in" result="combined"/>
+        <feTurbulence id="check-edge-turb" type="fractalNoise" baseFrequency="0.05" numOctaves="2" result="edge-noise" seed="15"/>
+        <feDisplacementMap id="check-edge-disp" in="combined" in2="edge-noise" scale="1.5" xChannelSelector="R" yChannelSelector="G"/>
       </filter>
 
       <!-- Mask for checkmark cutout (negative space) -->
@@ -636,6 +771,159 @@
       <span class="oals">ALS</span>
     </div>
   </div>
+
+  <h2>Concept 11: Interactive Tuner</h2>
+  <div class="concept concept-11" id="concept-11">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+
+    <div class="controls">
+      <label>Checkmark Style</label>
+      <select id="check-style">
+        <option value="cutout">Negative Space (cutout)</option>
+        <option value="ontop">Red Stroke On Top</option>
+      </select>
+
+      <label>Stipple Amount (gaps)</label>
+      <input type="range" id="stipple-amount" min="0" max="5" step="0.1" value="2">
+      <input type="number" class="value" id="stipple-amount-val" min="0" max="5" step="0.1" value="2">
+
+      <label>Stipple Size (frequency)</label>
+      <input type="range" id="stipple-freq" min="0.01" max="0.3" step="0.001" value="0.12">
+      <input type="number" class="value" id="stipple-freq-val" min="0.01" max="0.3" step="0.001" value="0.12">
+
+      <label>Watercolor Intensity</label>
+      <input type="range" id="wc-intensity" min="0" max="1" step="0.01" value="0.5">
+      <input type="number" class="value" id="wc-intensity-val" min="0" max="1" step="0.01" value="0.5">
+
+      <label>Watercolor Frequency</label>
+      <input type="range" id="wc-freq" min="0.01" max="0.15" step="0.001" value="0.04">
+      <input type="number" class="value" id="wc-freq-val" min="0.01" max="0.15" step="0.001" value="0.04">
+
+      <label>Edge Roughness</label>
+      <input type="range" id="edge-scale" min="0" max="8" step="0.1" value="2">
+      <input type="number" class="value" id="edge-scale-val" min="0" max="8" step="0.1" value="2">
+    </div>
+
+    <div class="output-values" id="output-values">
+/* Current values - copy these for final version */
+stippleAmount: 2,      // 0-5 (number of 0s in threshold)
+stippleFreq: 0.12,     // 0.05-0.25
+wcIntensity: 0.50,     // 0-1
+wcFreq: 0.04,          // 0.02-0.1
+edgeScale: 2.0         // 0-5
+    </div>
+  </div>
+
+  <script>
+    // Slider and number input controls for Concept 11
+    const sliders = {
+      stippleAmount: document.getElementById('stipple-amount'),
+      stippleFreq: document.getElementById('stipple-freq'),
+      wcIntensity: document.getElementById('wc-intensity'),
+      wcFreq: document.getElementById('wc-freq'),
+      edgeScale: document.getElementById('edge-scale')
+    };
+
+    const numbers = {
+      stippleAmount: document.getElementById('stipple-amount-val'),
+      stippleFreq: document.getElementById('stipple-freq-val'),
+      wcIntensity: document.getElementById('wc-intensity-val'),
+      wcFreq: document.getElementById('wc-freq-val'),
+      edgeScale: document.getElementById('edge-scale-val')
+    };
+
+    const checkStyle = document.getElementById('check-style');
+    const outputEl = document.getElementById('output-values');
+    const concept11 = document.getElementById('concept-11');
+
+    function getValues() {
+      return {
+        stippleAmount: parseFloat(sliders.stippleAmount.value),
+        stippleFreq: parseFloat(sliders.stippleFreq.value),
+        wcIntensity: parseFloat(sliders.wcIntensity.value),
+        wcFreq: parseFloat(sliders.wcFreq.value),
+        edgeScale: parseFloat(sliders.edgeScale.value)
+      };
+    }
+
+    function updateFilter() {
+      const v = getValues();
+
+      // Build threshold table with fractional support
+      // e.g., 2.5 means: 0, 0, 0.5, 1, 1, 1, 1, 1, 1, 1
+      const thresholdTable = Array(10).fill(1);
+      const fullZeros = Math.floor(v.stippleAmount);
+      const fractional = v.stippleAmount - fullZeros;
+
+      for (let i = 0; i < fullZeros && i < 10; i++) {
+        thresholdTable[i] = 0;
+      }
+      if (fullZeros < 10 && fractional > 0) {
+        thresholdTable[fullZeros] = 1 - fractional;
+      }
+      const tableStr = thresholdTable.map(n => n.toFixed(2)).join(' ');
+
+      // Update SVG filter elements
+      document.getElementById('stipple-turb').setAttribute('baseFrequency', v.stippleFreq);
+      document.getElementById('stipple-thresh').setAttribute('tableValues', tableStr);
+      document.getElementById('wc-turb').setAttribute('baseFrequency', v.wcFreq);
+
+      // Watercolor matrix: last two values control intensity
+      const wcOffset = 1 - v.wcIntensity;
+      const wcMatrix = `1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 ${v.wcIntensity.toFixed(2)} ${wcOffset.toFixed(2)}`;
+      document.getElementById('wc-matrix').setAttribute('values', wcMatrix);
+
+      document.getElementById('edge-disp').setAttribute('scale', v.edgeScale);
+
+      // Update output display
+      outputEl.textContent = `/* Current values - copy these for final version */
+stippleAmount: ${v.stippleAmount.toFixed(1)},
+stippleFreq: ${v.stippleFreq.toFixed(3)},
+wcIntensity: ${v.wcIntensity.toFixed(2)},
+wcFreq: ${v.wcFreq.toFixed(3)},
+edgeScale: ${v.edgeScale.toFixed(2)}
+
+/* Threshold table: ${tableStr} */
+/* WC matrix: 0 0 0 ${v.wcIntensity.toFixed(2)} ${wcOffset.toFixed(2)} */`;
+    }
+
+    function updateCheckStyle() {
+      if (checkStyle.value === 'ontop') {
+        concept11.classList.add('check-on-top');
+      } else {
+        concept11.classList.remove('check-on-top');
+      }
+    }
+
+    // Sync slider -> number input
+    Object.keys(sliders).forEach(key => {
+      sliders[key].addEventListener('input', () => {
+        numbers[key].value = sliders[key].value;
+        updateFilter();
+      });
+    });
+
+    // Sync number input -> slider
+    Object.keys(numbers).forEach(key => {
+      numbers[key].addEventListener('input', () => {
+        sliders[key].value = numbers[key].value;
+        updateFilter();
+      });
+    });
+
+    checkStyle.addEventListener('change', updateCheckStyle);
+
+    // Initial update
+    updateFilter();
+  </script>
 
   <h2>Standalone Icons (Favicon / App Icon)</h2>
   <div class="concept">
