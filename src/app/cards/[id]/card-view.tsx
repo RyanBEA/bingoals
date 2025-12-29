@@ -101,6 +101,46 @@ export function CardView({ card: initialCard }: CardViewProps) {
     [card.id, router]
   );
 
+  const handleEditGoal = useCallback(
+    async (goalId: string, title: string, category: string) => {
+      const response = await fetch(`/api/goals/${goalId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, category }),
+      });
+
+      if (response.ok) {
+        const { goal: updatedGoal } = await response.json();
+        setCard((prev) => ({
+          ...prev,
+          goals: prev.goals.map((g) =>
+            g.id === goalId ? { ...g, ...updatedGoal } : g
+          ),
+        }));
+      }
+    },
+    []
+  );
+
+  const handleDeleteGoal = useCallback(
+    async (goalId: string) => {
+      const response = await fetch(`/api/goals/${goalId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        const { goal: updatedGoal } = await response.json();
+        setCard((prev) => ({
+          ...prev,
+          goals: prev.goals.map((g) =>
+            g.id === goalId ? { ...g, ...updatedGoal } : g
+          ),
+        }));
+      }
+    },
+    []
+  );
+
   const handleDelete = useCallback(async () => {
     if (!confirm("Are you sure you want to delete this card?")) return;
 
@@ -174,6 +214,8 @@ export function CardView({ card: initialCard }: CardViewProps) {
           onGoalToggle={handleGoalToggle}
           onFreeSpaceUpdate={handleFreeSpaceUpdate}
           onAddGoal={handleAddGoal}
+          onEditGoal={handleEditGoal}
+          onDeleteGoal={handleDeleteGoal}
         />
       </div>
 

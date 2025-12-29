@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { CardPreview } from "@/components/cards/card-preview";
@@ -27,6 +28,7 @@ async function getActiveCards() {
 }
 
 export default async function HomePage() {
+  noStore(); // Disable caching to always show fresh data
   const [stats, cards] = await Promise.all([getStats(), getActiveCards()]);
 
   return (

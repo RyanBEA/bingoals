@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BingoCell } from "./bingo-cell";
 import { FreeSpaceDialog } from "./free-space-dialog";
+import { EditGoalDialog } from "./edit-goal-dialog";
 import { AddGoalDialog } from "../cards/add-goal-dialog";
 import { Celebration } from "./celebration";
 import type { Goal, Bingo } from "@/types";
@@ -15,6 +16,8 @@ interface BingoGridProps {
   onGoalToggle?: (goalId: string, completed: boolean) => Promise<void>;
   onFreeSpaceUpdate?: (goalId: string, title: string) => Promise<void>;
   onAddGoal?: (title: string, category: string) => Promise<void>;
+  onEditGoal?: (goalId: string, title: string, category: string) => Promise<void>;
+  onDeleteGoal?: (goalId: string) => Promise<void>;
 }
 
 export function BingoGrid({
@@ -24,9 +27,12 @@ export function BingoGrid({
   onGoalToggle,
   onFreeSpaceUpdate,
   onAddGoal,
+  onEditGoal,
+  onDeleteGoal,
 }: BingoGridProps) {
   const [selectedFreeSpace, setSelectedFreeSpace] = useState<Goal | null>(null);
   const [selectedPlaceholder, setSelectedPlaceholder] = useState<Goal | null>(null);
+  const [selectedGoalForEdit, setSelectedGoalForEdit] = useState<Goal | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
   const [processingGoalId, setProcessingGoalId] = useState<string | null>(null);
 
@@ -56,14 +62,36 @@ export function BingoGrid({
       return;
     }
 
+    // If goal is completed, open edit dialog
+    if (goal.isCompleted) {
+      setSelectedGoalForEdit(goal);
+      return;
+    }
+
+    // Otherwise toggle completion
     if (onGoalToggle) {
       setProcessingGoalId(goal.id);
-      const previousBingoCount = bingos.length;
-      await onGoalToggle(goal.id, !goal.isCompleted);
+      await onGoalToggle(goal.id, true);
       setProcessingGoalId(null);
+    }
+  };
 
-      // Check if a new bingo was achieved (this would require re-fetching data)
-      // For now, celebration is triggered by the parent component
+  const handleCellLongPress = (goal: Goal) => {
+    // Long press opens edit dialog for any non-placeholder, non-free-space goal
+    if (!goal.isFreeSpace && !goal.isPlaceholder) {
+      setSelectedGoalForEdit(goal);
+    }
+  };
+
+  const handleEditGoal = async (goalId: string, title: string, category: string) => {
+    if (onEditGoal) {
+      await onEditGoal(goalId, title, category);
+    }
+  };
+
+  const handleDeleteGoal = async (goalId: string) => {
+    if (onDeleteGoal) {
+      await onDeleteGoal(goalId);
     }
   };
 
@@ -90,6 +118,7 @@ export function BingoGrid({
             goal={goal}
             isInBingoLine={bingoPositions.has(goal.position)}
             onClick={() => handleCellClick(goal)}
+            onLongPress={() => handleCellLongPress(goal)}
           />
         ))}
       </div>
@@ -105,6 +134,14 @@ export function BingoGrid({
         open={!!selectedPlaceholder}
         onOpenChange={(open) => !open && setSelectedPlaceholder(null)}
         onSave={handleAddGoal}
+      />
+
+      <EditGoalDialog
+        open={!!selectedGoalForEdit}
+        onOpenChange={(open) => !open && setSelectedGoalForEdit(null)}
+        goal={selectedGoalForEdit}
+        onSave={handleEditGoal}
+        onDelete={handleDeleteGoal}
       />
 
       <Celebration

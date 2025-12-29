@@ -10,9 +10,10 @@ export async function PATCH(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { isCompleted, title } = body as {
+    const { isCompleted, title, category } = body as {
       isCompleted?: boolean;
       title?: string;
+      category?: string;
     };
 
     // Get current goal
@@ -30,6 +31,7 @@ export async function PATCH(
       isCompleted?: boolean;
       completedAt?: Date | null;
       title?: string;
+      category?: string;
     } = {};
 
     if (isCompleted !== undefined) {
@@ -39,6 +41,10 @@ export async function PATCH(
 
     if (title !== undefined) {
       updateData.title = title;
+    }
+
+    if (category !== undefined) {
+      updateData.category = category;
     }
 
     const updatedGoal = await prisma.goal.update({
@@ -81,6 +87,52 @@ export async function PATCH(
     console.error("Error updating goal:", error);
     return NextResponse.json(
       { error: "Failed to update goal" },
+      { status: 500 }
+    );
+  }
+}
+
+// DELETE goal (converts back to placeholder)
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    // Get current goal
+    const goal = await prisma.goal.findUnique({
+      where: { id },
+    });
+
+    if (!goal) {
+      return NextResponse.json({ error: "Goal not found" }, { status: 404 });
+    }
+
+    // Don't allow deleting free space
+    if (goal.isFreeSpace) {
+      return NextResponse.json(
+        { error: "Cannot delete free space" },
+        { status: 400 }
+      );
+    }
+
+    // Convert to placeholder
+    const updatedGoal = await prisma.goal.update({
+      where: { id },
+      data: {
+        title: "TBD",
+        isPlaceholder: true,
+        isCompleted: false,
+        completedAt: null,
+      },
+    });
+
+    return NextResponse.json({ goal: updatedGoal });
+  } catch (error) {
+    console.error("Error deleting goal:", error);
+    return NextResponse.json(
+      { error: "Failed to delete goal" },
       { status: 500 }
     );
   }

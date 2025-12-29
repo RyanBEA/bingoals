@@ -1,3 +1,4 @@
+import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { CardPreview } from "@/components/cards/card-preview";
@@ -5,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
 async function getCards() {
+  noStore();
   return prisma.card.findMany({
     include: {
       goals: true,

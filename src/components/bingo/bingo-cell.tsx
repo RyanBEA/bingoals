@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Check, Star, HelpCircle } from "lucide-react";
 import type { Goal, Category } from "@/types";
@@ -9,15 +10,43 @@ interface BingoCellProps {
   goal: Goal;
   isInBingoLine?: boolean;
   onClick?: () => void;
+  onLongPress?: () => void;
 }
 
-export function BingoCell({ goal, isInBingoLine, onClick }: BingoCellProps) {
+export function BingoCell({ goal, isInBingoLine, onClick, onLongPress }: BingoCellProps) {
   const category = goal.category as Category;
   const colors = CATEGORY_COLORS[category] || CATEGORY_COLORS.CAREER;
+  const longPressTimer = useRef<NodeJS.Timeout | null>(null);
+  const isLongPress = useRef(false);
+
+  const handleMouseDown = useCallback(() => {
+    isLongPress.current = false;
+    longPressTimer.current = setTimeout(() => {
+      isLongPress.current = true;
+      onLongPress?.();
+    }, 500);
+  }, [onLongPress]);
+
+  const handleMouseUp = useCallback(() => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current);
+    }
+  }, []);
+
+  const handleClick = useCallback(() => {
+    if (!isLongPress.current) {
+      onClick?.();
+    }
+  }, [onClick]);
 
   return (
     <button
-      onClick={onClick}
+      onClick={handleClick}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
       className={cn(
         "aspect-square p-1 sm:p-2 rounded-lg border-2 flex flex-col items-center justify-center text-center transition-all",
         "hover:scale-105 active:scale-95",
