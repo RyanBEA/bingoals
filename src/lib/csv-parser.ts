@@ -39,7 +39,7 @@ export function parseGoalsCSV(csvContent: string): ParseResult {
   const goals: ParsedGoal[] = [];
   const errors: string[] = [];
 
-  result.data.forEach((row: Record<string, string>, index: number) => {
+  (result.data as Record<string, string>[]).forEach((row, index) => {
     const { title, category, description, ...extraFields } = row;
 
     if (!title?.trim()) {
