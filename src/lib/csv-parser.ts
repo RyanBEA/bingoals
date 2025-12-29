@@ -1,6 +1,6 @@
 import Papa from "papaparse";
 
-export type Category = "CAREER" | "HEALTH" | "CREATIVE" | "RELATIONSHIPS";
+export type Category = "CAREER" | "HEALTH" | "CREATIVE" | "RELATIONSHIPS" | "FINANCIAL" | "HOME";
 
 export interface ParsedGoal {
   title: string;

@@ -207,7 +207,7 @@
       filter: url(#ink-stamp);
     }
 
-    /* Concept 6: AGGRESSIVE Distressed / Worn Stamp */
+    /* Concept 6: Negative Space + Light Distress */
     .concept-6 { background: #faf9f7; }
     .concept-6 .logo {
       font-size: 72px;
@@ -217,58 +217,137 @@
     .concept-6 .bing { color: #1a1a1a; }
     .concept-6 .oals { color: #1a1a1a; }
     .concept-6 .dab {
-      width: 70px;
-      height: 70px;
+      width: 78px;
+      height: 78px;
+      background: radial-gradient(circle at 40% 40%, #ef4444 0%, #dc2626 50%, #b91c1c 80%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#ink-fade-light);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
+    }
+
+    /* Concept 7: Negative Space + Medium Distress (Dark bg) */
+    .concept-7 { background: #1a1a2e; }
+    .concept-7 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
+    }
+    .concept-7 .bing { color: #fff; }
+    .concept-7 .oals { color: #fff; }
+    .concept-7 .dab {
+      width: 78px;
+      height: 78px;
+      background: radial-gradient(circle at 40% 40%, #ef4444 0%, #dc2626 50%, #b91c1c 80%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#ink-fade-medium);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
+    }
+
+    /* Concept 8: Negative space + Heavy Distress */
+    .concept-8 { background: #f5f5f0; }
+    .concept-8 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
+    }
+    .concept-8 .bing { color: #1a1a1a; }
+    .concept-8 .oals { color: #1a1a1a; }
+    .concept-8 .dab {
+      width: 78px;
+      height: 78px;
       background: radial-gradient(circle at 35% 35%, #dc2626 0%, #b91c1c 40%, #991b1b 70%, #7f1d1d 100%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 -4px;
-      filter: url(#distressed-stamp);
-      opacity: 0.92;
-    }
-    .concept-6 .checkmark {
-      width: 38px;
-      height: 38px;
-      stroke: rgba(255,255,255,0.8);
-      stroke-width: 7;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      filter: url(#worn-check);
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#ink-fade-heavy);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
     }
 
-    /* Concept 7: MAXIMUM distress - faded ink, barely holding on */
-    .concept-7 { background: #f5f5f0; }
-    .concept-7 .logo {
-      font-size: 68px;
-      font-family: 'Impact', sans-serif;
-      letter-spacing: 1px;
+    /* Concept 9: RED CHECKMARK ON TOP (like reference image) */
+    .concept-9 { background: #faf9f7; }
+    .concept-9 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
     }
-    .concept-7 .bing { color: #292524; }
-    .concept-7 .oals { color: #292524; }
-    .concept-7 .dab {
-      width: 66px;
-      height: 66px;
-      background: radial-gradient(ellipse at 30% 40%, #ef4444 0%, #dc2626 30%, #b91c1c 60%, transparent 85%);
+    .concept-9 .bing { color: #1a1a1a; }
+    .concept-9 .oals { color: #1a1a1a; }
+    .concept-9 .dab {
+      width: 78px;
+      height: 78px;
+      background: radial-gradient(circle at 40% 40%, #dc2626 0%, #b91c1c 50%, #991b1b 80%);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 -2px;
-      filter: url(#distressed-stamp);
-      opacity: 0.85;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#ink-fade-medium);
     }
-    .concept-7 .checkmark {
-      width: 34px;
-      height: 34px;
-      stroke: rgba(255,255,255,0.65);
-      stroke-width: 8;
+    .concept-9 .checkmark {
+      width: 44px;
+      height: 44px;
+      stroke: #7f1d1d;
+      stroke-width: 6;
       fill: none;
       stroke-linecap: round;
       stroke-linejoin: round;
-      filter: url(#worn-check);
+      filter: url(#ink-fade-light);
+    }
+
+    /* Concept 10: Like reference - ring effect + red check */
+    .concept-10 { background: #f8f8f6; }
+    .concept-10 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
+    }
+    .concept-10 .bing { color: #1a1a1a; }
+    .concept-10 .oals { color: #1a1a1a; }
+    .concept-10 .dab {
+      width: 78px;
+      height: 78px;
+      background:
+        radial-gradient(circle at 50% 50%, transparent 60%, #b91c1c 65%, #dc2626 75%, transparent 80%),
+        radial-gradient(circle at 40% 40%, #dc2626 0%, #b91c1c 40%, #991b1b 70%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -14px;
+      position: relative;
+      z-index: 1;
+      filter: url(#ink-fade-heavy);
+    }
+    .concept-10 .checkmark {
+      width: 48px;
+      height: 48px;
+      stroke: #991b1b;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#ink-fade-medium);
     }
 
     /* Standalone Icon */
@@ -307,25 +386,22 @@
     .icon-4 svg {
       filter: url(#ink-stamp);
     }
+    /* Negative space icons with faded ink */
     .icon-5 {
-      background: radial-gradient(circle at 35% 35%, #dc2626 0%, #b91c1c 40%, #991b1b 70%, #7f1d1d 100%);
-      filter: url(#distressed-stamp);
-      opacity: 0.92;
+      background: radial-gradient(circle at 40% 40%, #ef4444 0%, #dc2626 50%, #b91c1c 80%);
+      filter: url(#ink-fade-light);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
     }
-    .icon-5 svg {
-      filter: url(#worn-check);
-      stroke: rgba(255,255,255,0.8);
-    }
+    .icon-5 svg { display: none; }
+
     .icon-6 {
-      background: radial-gradient(ellipse at 30% 40%, #ef4444 0%, #dc2626 30%, #b91c1c 60%, transparent 85%);
-      filter: url(#distressed-stamp);
-      opacity: 0.8;
+      background: radial-gradient(circle at 35% 35%, #dc2626 0%, #b91c1c 40%, #991b1b 70%, #7f1d1d 100%);
+      filter: url(#ink-fade-heavy);
+      -webkit-mask: url(#check-cutout-mask);
+      mask: url(#check-cutout-mask);
     }
-    .icon-6 svg {
-      filter: url(#worn-check);
-      stroke: rgba(255,255,255,0.6);
-      stroke-width: 6;
-    }
+    .icon-6 svg { display: none; }
   </style>
 </head>
 <body>
@@ -375,6 +451,69 @@
         <feColorMatrix in="holes" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1.5 -0.3" result="hole-mask"/>
         <feComposite in="wobbly" in2="hole-mask" operator="in"/>
       </filter>
+
+      <!-- STIPPLE: Light - small gaps, grainy texture -->
+      <filter id="ink-fade-light" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="4" result="noise" seed="2"/>
+        <!-- Threshold to create binary holes -->
+        <feComponentTransfer in="noise" result="thresh">
+          <feFuncA type="discrete" tableValues="0 0 0 1 1 1 1 1 1 1"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
+        <!-- Slight edge roughness -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="edge-noise" seed="5"/>
+        <feDisplacementMap in="stippled" in2="edge-noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- STIPPLE: Medium - more gaps, visible missing spots -->
+      <filter id="ink-fade-medium" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="5" result="noise" seed="4"/>
+        <feComponentTransfer in="noise" result="thresh">
+          <feFuncA type="discrete" tableValues="0 0 0 0 1 1 1 1 1 1"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="4" result="edge-noise" seed="8"/>
+        <feDisplacementMap in="stippled" in2="edge-noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- STIPPLE: Heavy - lots of gaps, worn stamp look -->
+      <filter id="ink-fade-heavy" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="6" result="noise" seed="6"/>
+        <feComponentTransfer in="noise" result="thresh">
+          <feFuncA type="discrete" tableValues="0 0 0 0 0 1 1 1 1 1"/>
+        </feComponentTransfer>
+        <feComposite in="SourceGraphic" in2="thresh" operator="in" result="stippled"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="4" result="edge-noise" seed="10"/>
+        <feDisplacementMap in="stippled" in2="edge-noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- Mask for checkmark cutout (negative space) -->
+      <mask id="check-cutout-mask" maskContentUnits="objectBoundingBox">
+        <!-- White circle = visible area -->
+        <circle cx="0.5" cy="0.5" r="0.5" fill="white"/>
+        <!-- Black checkmark = cutout area -->
+        <polyline
+          points="0.22,0.5 0.42,0.7 0.78,0.3"
+          stroke="black"
+          stroke-width="0.12"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+        />
+      </mask>
+
+      <!-- Thinner checkmark cutout -->
+      <mask id="check-cutout-thin" maskContentUnits="objectBoundingBox">
+        <circle cx="0.5" cy="0.5" r="0.5" fill="white"/>
+        <polyline
+          points="0.25,0.5 0.42,0.68 0.75,0.32"
+          stroke="black"
+          stroke-width="0.08"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          fill="none"
+        />
+      </mask>
     </defs>
   </svg>
 
@@ -445,8 +584,35 @@
     </div>
   </div>
 
-  <h2>Concept 6: Distressed Stamp (Aggressive)</h2>
+  <h2>Concept 6: Negative Space Checkmark (Light BG)</h2>
   <div class="concept concept-6">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 7: Negative Space Checkmark (Dark BG)</h2>
+  <div class="concept concept-7">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 8: Negative Space + Heavy Stipple</h2>
+  <div class="concept concept-8">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab"></div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 9: Red Check ON TOP (like reference)</h2>
+  <div class="concept concept-9">
     <div class="logo">
       <span class="bing">BING</span>
       <div class="dab">
@@ -458,8 +624,8 @@
     </div>
   </div>
 
-  <h2>Concept 7: Maximum Fade (Worn Ink)</h2>
-  <div class="concept concept-7">
+  <h2>Concept 10: Ring Effect + Red Check (closest to reference)</h2>
+  <div class="concept concept-10">
     <div class="logo">
       <span class="bing">BING</span>
       <div class="dab">
