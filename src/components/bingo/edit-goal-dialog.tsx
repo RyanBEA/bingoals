@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
-import { Trash2 } from "lucide-react";
+import { Trash2, RotateCcw } from "lucide-react";
 import type { Goal } from "@/types";
 
 interface EditGoalDialogProps {
@@ -22,6 +22,7 @@ interface EditGoalDialogProps {
   goal: Goal | null;
   onSave: (goalId: string, title: string, category: string) => Promise<void>;
   onDelete: (goalId: string) => Promise<void>;
+  onToggleComplete?: (goalId: string, completed: boolean) => Promise<void>;
 }
 
 export function EditGoalDialog({
@@ -30,11 +31,13 @@ export function EditGoalDialog({
   goal,
   onSave,
   onDelete,
+  onToggleComplete,
 }: EditGoalDialogProps) {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("CAREER");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [toggling, setToggling] = useState(false);
 
   useEffect(() => {
     if (goal) {
@@ -57,6 +60,14 @@ export function EditGoalDialog({
     setDeleting(true);
     await onDelete(goal.id);
     setDeleting(false);
+    onOpenChange(false);
+  };
+
+  const handleToggleComplete = async () => {
+    if (!goal || !onToggleComplete) return;
+    setToggling(true);
+    await onToggleComplete(goal.id, !goal.isCompleted);
+    setToggling(false);
     onOpenChange(false);
   };
 
@@ -95,15 +106,26 @@ export function EditGoalDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={deleting || saving}
-            className="mr-auto"
-          >
-            <Trash2 className="w-4 h-4 mr-2" />
-            {deleting ? "Deleting..." : "Delete"}
-          </Button>
+          <div className="flex gap-2 mr-auto">
+            <Button
+              variant="destructive"
+              onClick={handleDelete}
+              disabled={deleting || saving || toggling}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              {deleting ? "Deleting..." : "Delete"}
+            </Button>
+            {goal?.isCompleted && onToggleComplete && (
+              <Button
+                variant="outline"
+                onClick={handleToggleComplete}
+                disabled={deleting || saving || toggling}
+              >
+                <RotateCcw className="w-4 h-4 mr-2" />
+                {toggling ? "..." : "Mark Incomplete"}
+              </Button>
+            )}
+          </div>
           <Button variant="outline" onClick={() => onOpenChange(false)}>
             Cancel
           </Button>

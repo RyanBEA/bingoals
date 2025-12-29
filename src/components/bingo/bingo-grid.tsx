@@ -95,6 +95,12 @@ export function BingoGrid({
     }
   };
 
+  const handleToggleComplete = async (goalId: string, completed: boolean) => {
+    if (onGoalToggle) {
+      await onGoalToggle(goalId, completed);
+    }
+  };
+
   const handleFreeSpaceSave = async (title: string) => {
     if (selectedFreeSpace && onFreeSpaceUpdate) {
       await onFreeSpaceUpdate(selectedFreeSpace.id, title);
@@ -142,6 +148,7 @@ export function BingoGrid({
         goal={selectedGoalForEdit}
         onSave={handleEditGoal}
         onDelete={handleDeleteGoal}
+        onToggleComplete={handleToggleComplete}
       />
 
       <Celebration

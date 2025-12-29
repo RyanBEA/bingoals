@@ -16,9 +16,8 @@ async function getStats() {
 }
 
 async function getActiveCards() {
-  const currentYear = new Date().getFullYear();
+  // Show all cards - they remain active for the entire year
   return prisma.card.findMany({
-    where: { year: currentYear },
     include: {
       goals: true,
       bingos: true,

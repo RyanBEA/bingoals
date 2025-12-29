@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { detectBingos } from "@/lib/bingo-detection";
+import { detectBingos, getPositionsInLine } from "@/lib/bingo-detection";
 
 // PATCH toggle goal completion
 export async function PATCH(
@@ -52,7 +52,7 @@ export async function PATCH(
       data: updateData,
     });
 
-    // Check for new bingos
+    // Check for new bingos or invalidate existing ones
     let newBingo = false;
     if (isCompleted === true) {
       const updatedGoals = goal.card.goals.map((g) =>
@@ -80,6 +80,23 @@ export async function PATCH(
         });
         newBingo = true;
       }
+    } else if (isCompleted === false) {
+      // Invalidate any bingos that include this goal's position
+      const bingosToDelete = goal.card.bingos.filter((bingo) => {
+        const positions = getPositionsInLine(
+          bingo.type as "HORIZONTAL" | "VERTICAL" | "DIAGONAL_LEFT" | "DIAGONAL_RIGHT",
+          bingo.lineIndex
+        );
+        return positions.includes(goal.position);
+      });
+
+      if (bingosToDelete.length > 0) {
+        await prisma.bingo.deleteMany({
+          where: {
+            id: { in: bingosToDelete.map((b) => b.id) },
+          },
+        });
+      }
     }
 
     return NextResponse.json({ goal: updatedGoal, newBingo });
@@ -100,9 +117,10 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    // Get current goal
+    // Get current goal with card's bingos
     const goal = await prisma.goal.findUnique({
       where: { id },
+      include: { card: { include: { bingos: true } } },
     });
 
     if (!goal) {
@@ -127,6 +145,23 @@ export async function DELETE(
         completedAt: null,
       },
     });
+
+    // Invalidate any bingos that include this goal's position
+    const bingosToDelete = goal.card.bingos.filter((bingo) => {
+      const positions = getPositionsInLine(
+        bingo.type as "HORIZONTAL" | "VERTICAL" | "DIAGONAL_LEFT" | "DIAGONAL_RIGHT",
+        bingo.lineIndex
+      );
+      return positions.includes(goal.position);
+    });
+
+    if (bingosToDelete.length > 0) {
+      await prisma.bingo.deleteMany({
+        where: {
+          id: { in: bingosToDelete.map((b) => b.id) },
+        },
+      });
+    }
 
     return NextResponse.json({ goal: updatedGoal });
   } catch (error) {

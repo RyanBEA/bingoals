@@ -49,9 +49,9 @@ export function CardView({ card: initialCard }: CardViewProps) {
 
         if (newBingo) {
           setShowCelebration(true);
-          // Refresh to get updated bingos
-          router.refresh();
         }
+        // Refresh to get updated bingos (both for new bingos and invalidated ones)
+        router.refresh();
       }
     },
     [router]
@@ -136,9 +136,11 @@ export function CardView({ card: initialCard }: CardViewProps) {
             g.id === goalId ? { ...g, ...updatedGoal } : g
           ),
         }));
+        // Refresh to get updated bingos
+        router.refresh();
       }
     },
-    []
+    [router]
   );
 
   const handleDelete = useCallback(async () => {
