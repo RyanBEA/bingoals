@@ -63,10 +63,12 @@ Player (1) ──< Card (many) ──< Goal (25 per card)
 ## Key Concepts
 
 ### Goal Categories
-- `CAREER` (blue)
-- `HEALTH` (green)
-- `CREATIVE` (purple)
-- `RELATIONSHIPS` (orange)
+- `CAREER` (blue) - Work, professional growth
+- `HEALTH` (green) - Physical, mental, fitness
+- `CREATIVE` (purple) - Learning, creativity, skills, hobbies
+- `RELATIONSHIPS` (orange) - Family, friends, social
+- `FINANCIAL` (yellow) - Money, savings, investments, major purchases
+- `HOME` (teal) - House projects, maintenance, organization, errands
 
 ### Grid Positions
 - 5x5 grid, positions 0-24
@@ -133,5 +135,5 @@ title,category,description
 ```
 
 - Maximum 24 goals (remaining become placeholders)
-- Categories must match: CAREER, HEALTH, CREATIVE, RELATIONSHIPS
+- Categories must match: CAREER, HEALTH, CREATIVE, RELATIONSHIPS, FINANCIAL, HOME
 - Description is optional

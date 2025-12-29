@@ -1,4 +1,4 @@
-export type Category = "CAREER" | "HEALTH" | "CREATIVE" | "RELATIONSHIPS";
+export type Category = "CAREER" | "HEALTH" | "CREATIVE" | "RELATIONSHIPS" | "FINANCIAL" | "HOME";
 
 export type BingoType =
   | "HORIZONTAL"
@@ -70,5 +70,15 @@ export const CATEGORY_COLORS: Record<Category, { bg: string; border: string; tex
     bg: "bg-orange-100",
     border: "border-orange-500",
     text: "text-orange-700",
+  },
+  FINANCIAL: {
+    bg: "bg-yellow-100",
+    border: "border-yellow-500",
+    text: "text-yellow-700",
+  },
+  HOME: {
+    bg: "bg-teal-100",
+    border: "border-teal-500",
+    text: "text-teal-700",
   },
 };

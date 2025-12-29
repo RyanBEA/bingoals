@@ -144,7 +144,7 @@ export function CSVUploader({ onGoalsParsed }: CSVUploaderProps) {
 "Write a book",CREATIVE,"Fiction novel"`}
         </pre>
         <p className="text-sm text-muted-foreground mt-2">
-          Categories: CAREER, HEALTH, CREATIVE, RELATIONSHIPS
+          Categories: CAREER, HEALTH, CREATIVE, RELATIONSHIPS, FINANCIAL, HOME
           <br />
           Maximum 24 goals (remaining slots become placeholders)
         </p>

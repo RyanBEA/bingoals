@@ -69,6 +69,8 @@ export function AddGoalDialog({
               <option value="HEALTH">Health</option>
               <option value="CREATIVE">Creative</option>
               <option value="RELATIONSHIPS">Relationships</option>
+              <option value="FINANCIAL">Financial</option>
+              <option value="HOME">Home</option>
             </Select>
           </div>
         </div>

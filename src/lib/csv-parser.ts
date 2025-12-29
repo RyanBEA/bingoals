@@ -20,6 +20,8 @@ const VALID_CATEGORIES: Category[] = [
   "HEALTH",
   "CREATIVE",
   "RELATIONSHIPS",
+  "FINANCIAL",
+  "HOME",
 ];
 
 export function parseGoalsCSV(csvContent: string): ParseResult {

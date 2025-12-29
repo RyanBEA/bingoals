@@ -130,7 +130,7 @@ export default async function StatsPage() {
         <div className="bg-card border rounded-lg p-4">
           <h2 className="font-semibold mb-4">Goals by Category</h2>
           <div className="space-y-3">
-            {(["CAREER", "HEALTH", "CREATIVE", "RELATIONSHIPS"] as const).map(
+            {(["CAREER", "HEALTH", "CREATIVE", "RELATIONSHIPS", "FINANCIAL", "HOME"] as const).map(
               (category) => {
                 const count = stats.goalsByCategory[category] || 0;
                 const maxCount = Math.max(

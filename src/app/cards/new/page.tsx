@@ -192,7 +192,7 @@ export default function NewCardPage() {
           <div className="bg-muted rounded-lg p-3">
             <p className="text-sm font-medium mb-2">Category Distribution</p>
             <div className="grid grid-cols-2 gap-2 text-sm">
-              {(["CAREER", "HEALTH", "CREATIVE", "RELATIONSHIPS"] as const).map(
+              {(["CAREER", "HEALTH", "CREATIVE", "RELATIONSHIPS", "FINANCIAL", "HOME"] as const).map(
                 (cat) => {
                   const count = goals.filter((g) => g.category === cat).length;
                   const colors = CATEGORY_COLORS[cat];
