@@ -1,6 +1,8 @@
 import { unstable_noStore as noStore } from "next/cache";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 import { CardPreview } from "@/components/cards/card-preview";
 import { Button } from "@/components/ui/button";
 import { Plus, Trophy, Target, Calendar } from "lucide-react";

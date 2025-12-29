@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { CardView } from "./card-view";
 
+export const dynamic = "force-dynamic";
+
 async function getCard(id: string) {
   return prisma.card.findUnique({
     where: { id },

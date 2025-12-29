@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Trophy, Target, Calendar, TrendingUp } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 import { CATEGORY_COLORS, type Category } from "@/types";
 import { cn } from "@/lib/utils";
 
