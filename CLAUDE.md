@@ -111,6 +111,9 @@ DATABASE_URL=file:/app/data/bingoals.db  # Railway (persistent volume)
 - `prisma migrate deploy` runs at startup (not build time)
 - All database-dependent pages use `export const dynamic = "force-dynamic"`
 - Healthcheck path: `/` with 300s timeout
+- **Do NOT use `output: "standalone"`** in `next.config.ts` - it conflicts with `npm start`
+- Build command: `npm run build`
+- Start command: `mkdir -p /app/data && npx prisma migrate deploy && npm start`
 
 ## API Endpoints
 
@@ -137,3 +140,11 @@ title,category,description
 - Maximum 24 goals (remaining become placeholders)
 - Categories must match: CAREER, HEALTH, CREATIVE, RELATIONSHIPS, FINANCIAL, HOME
 - Description is optional
+
+## Important: Category Type Locations
+
+The `Category` type is defined in **two places** - keep them in sync:
+1. `src/types/index.ts` - Main type + `CATEGORY_COLORS` mapping
+2. `src/lib/csv-parser.ts` - Local type + `VALID_CATEGORIES` array
+
+When adding/removing categories, update both files.
