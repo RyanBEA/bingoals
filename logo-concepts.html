@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BINGOALS Logo Concepts</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      padding: 40px;
+      min-height: 100vh;
+    }
+    h1 { margin-bottom: 40px; color: #888; font-weight: 300; }
+    h2 { margin: 40px 0 20px; color: #666; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+    .concept {
+      background: #0f0f1a;
+      padding: 60px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    /* Stamped checkmark styles */
+    .stamp-check {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stamp-check svg {
+      filter: url(#ink-texture);
+    }
+
+    /* Concept 1: Bold Modern */
+    .concept-1 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+    }
+    .concept-1 .bing { color: #fff; }
+    .concept-1 .oals { color: #fff; }
+    .concept-1 .dab {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -4px;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.4);
+      filter: url(#dabber-edge);
+    }
+    .concept-1 .checkmark {
+      width: 32px;
+      height: 32px;
+      stroke: white;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.92;
+    }
+
+    /* Concept 2: Gradient Text */
+    .concept-2 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+    }
+    .concept-2 .bing {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .concept-2 .oals {
+      background: linear-gradient(135deg, #8b5cf6, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .concept-2 .dab {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -4px;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      filter: url(#dabber-edge);
+    }
+    .concept-2 .checkmark {
+      width: 32px;
+      height: 32px;
+      stroke: white;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.92;
+    }
+
+    /* Concept 3: Playful Rounded */
+    .concept-3 .logo {
+      font-size: 64px;
+      font-family: 'Trebuchet MS', sans-serif;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    .concept-3 .bing { color: #fbbf24; }
+    .concept-3 .oals { color: #fbbf24; }
+    .concept-3 .dab {
+      width: 58px;
+      height: 58px;
+      background: #ef4444;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -2px;
+      border: 4px solid #fbbf24;
+      filter: url(#dabber-edge);
+    }
+    .concept-3 .checkmark {
+      width: 28px;
+      height: 28px;
+      stroke: white;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.9;
+    }
+
+    /* Concept 4: Clean Minimal */
+    .concept-4 { background: #fff; }
+    .concept-4 .logo {
+      font-size: 56px;
+      font-family: system-ui, sans-serif;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+    .concept-4 .bing { color: #1f2937; }
+    .concept-4 .oals { color: #1f2937; }
+    .concept-4 .dab {
+      width: 50px;
+      height: 50px;
+      background: #22c55e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 2px;
+      filter: url(#dabber-edge);
+    }
+    .concept-4 .checkmark {
+      width: 26px;
+      height: 26px;
+      stroke: white;
+      stroke-width: 5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0.9;
+    }
+
+    /* Concept 5: Ink Dabber Style - Realistic */
+    .concept-5 .logo {
+      font-size: 72px;
+      font-family: 'Georgia', serif;
+      font-weight: 700;
+      letter-spacing: 0px;
+    }
+    .concept-5 .bing { color: #e2e8f0; }
+    .concept-5 .oals { color: #e2e8f0; }
+    .concept-5 .dab {
+      width: 68px;
+      height: 68px;
+      background: radial-gradient(circle at 40% 40%, #ef4444 0%, #dc2626 50%, #b91c1c 80%, #991b1b 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -6px;
+      filter: url(#dabber-heavy);
+    }
+    .concept-5 .checkmark {
+      width: 36px;
+      height: 36px;
+      stroke: rgba(255,255,255,0.85);
+      stroke-width: 6;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#ink-stamp);
+    }
+
+    /* Concept 6: AGGRESSIVE Distressed / Worn Stamp */
+    .concept-6 { background: #faf9f7; }
+    .concept-6 .logo {
+      font-size: 72px;
+      font-family: 'Arial Black', sans-serif;
+      letter-spacing: -2px;
+    }
+    .concept-6 .bing { color: #1a1a1a; }
+    .concept-6 .oals { color: #1a1a1a; }
+    .concept-6 .dab {
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at 35% 35%, #dc2626 0%, #b91c1c 40%, #991b1b 70%, #7f1d1d 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -4px;
+      filter: url(#distressed-stamp);
+      opacity: 0.92;
+    }
+    .concept-6 .checkmark {
+      width: 38px;
+      height: 38px;
+      stroke: rgba(255,255,255,0.8);
+      stroke-width: 7;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#worn-check);
+    }
+
+    /* Concept 7: MAXIMUM distress - faded ink, barely holding on */
+    .concept-7 { background: #f5f5f0; }
+    .concept-7 .logo {
+      font-size: 68px;
+      font-family: 'Impact', sans-serif;
+      letter-spacing: 1px;
+    }
+    .concept-7 .bing { color: #292524; }
+    .concept-7 .oals { color: #292524; }
+    .concept-7 .dab {
+      width: 66px;
+      height: 66px;
+      background: radial-gradient(ellipse at 30% 40%, #ef4444 0%, #dc2626 30%, #b91c1c 60%, transparent 85%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 -2px;
+      filter: url(#distressed-stamp);
+      opacity: 0.85;
+    }
+    .concept-7 .checkmark {
+      width: 34px;
+      height: 34px;
+      stroke: rgba(255,255,255,0.65);
+      stroke-width: 8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: url(#worn-check);
+    }
+
+    /* Standalone Icon */
+    .icon-row {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: url(#dabber-edge);
+    }
+    .icon svg {
+      width: 44px;
+      height: 44px;
+      stroke: rgba(255,255,255,0.9);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .icon-1 { background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); }
+    .icon-2 { background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); }
+    .icon-3 { background: #ef4444; border: 4px solid #fbbf24; }
+    .icon-4 {
+      background: radial-gradient(circle at 40% 40%, #ef4444 0%, #dc2626 50%, #b91c1c 80%);
+      filter: url(#dabber-heavy);
+    }
+    .icon-4 svg {
+      filter: url(#ink-stamp);
+    }
+    .icon-5 {
+      background: radial-gradient(circle at 35% 35%, #dc2626 0%, #b91c1c 40%, #991b1b 70%, #7f1d1d 100%);
+      filter: url(#distressed-stamp);
+      opacity: 0.92;
+    }
+    .icon-5 svg {
+      filter: url(#worn-check);
+      stroke: rgba(255,255,255,0.8);
+    }
+    .icon-6 {
+      background: radial-gradient(ellipse at 30% 40%, #ef4444 0%, #dc2626 30%, #b91c1c 60%, transparent 85%);
+      filter: url(#distressed-stamp);
+      opacity: 0.8;
+    }
+    .icon-6 svg {
+      filter: url(#worn-check);
+      stroke: rgba(255,255,255,0.6);
+      stroke-width: 6;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Filters for ink/stamp effects -->
+  <svg style="position: absolute; width: 0; height: 0;">
+    <defs>
+      <!-- Subtle edge roughness for dabber circle -->
+      <filter id="dabber-edge" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- Heavier ink effect for realistic dabber -->
+      <filter id="dabber-heavy" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="5" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- Ink stamp effect for checkmark - rough edges + slight blur -->
+      <filter id="ink-stamp" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feGaussianBlur in="displaced" stdDeviation="0.4" result="blurred"/>
+        <feComposite in="blurred" in2="displaced" operator="over"/>
+      </filter>
+
+      <!-- Ink texture overlay -->
+      <filter id="ink-texture" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+
+      <!-- AGGRESSIVE: Very distressed stamp with fading -->
+      <filter id="distressed-stamp" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="6" result="noise" seed="5"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.1" numOctaves="3" result="fade-noise" seed="10"/>
+        <feColorMatrix in="fade-noise" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.7 0.15" result="fade-alpha"/>
+        <feComposite in="displaced" in2="fade-alpha" operator="in"/>
+      </filter>
+
+      <!-- AGGRESSIVE: Worn checkmark with gaps -->
+      <filter id="worn-check" x="-25%" y="-25%" width="150%" height="150%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="5" result="noise" seed="3"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" result="wobbly"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.15" numOctaves="2" result="holes" seed="7"/>
+        <feColorMatrix in="holes" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1.5 -0.3" result="hole-mask"/>
+        <feComposite in="wobbly" in2="hole-mask" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <h1>BINGOALS Logo Concepts</h1>
+
+  <h2>Concept 1: Bold Modern (Green Dab)</h2>
+  <div class="concept concept-1">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 2: Category Gradient</h2>
+  <div class="concept concept-2">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 3: Playful Bingo Hall</h2>
+  <div class="concept concept-3">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 4: Clean Minimal (Light Mode)</h2>
+  <div class="concept concept-4">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 5: Ink Dabber (Realistic)</h2>
+  <div class="concept concept-5">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 6: Distressed Stamp (Aggressive)</h2>
+  <div class="concept concept-6">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Concept 7: Maximum Fade (Worn Ink)</h2>
+  <div class="concept concept-7">
+    <div class="logo">
+      <span class="bing">BING</span>
+      <div class="dab">
+        <svg class="checkmark" viewBox="0 0 24 24">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <span class="oals">ALS</span>
+    </div>
+  </div>
+
+  <h2>Standalone Icons (Favicon / App Icon)</h2>
+  <div class="concept">
+    <div class="icon-row">
+      <div class="icon icon-1">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+      <div class="icon icon-2">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+      <div class="icon icon-3">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+      <div class="icon icon-4">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+      <div class="icon icon-5">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+      <div class="icon icon-6">
+        <svg viewBox="0 0 24 24"><polyline points="4,12 10,18 20,6"></polyline></svg>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
