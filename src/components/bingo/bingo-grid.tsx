@@ -23,7 +23,6 @@ interface BingoGridProps {
 export function BingoGrid({
   goals,
   bingos,
-  cardId,
   onGoalToggle,
   onFreeSpaceUpdate,
   onAddGoal,
