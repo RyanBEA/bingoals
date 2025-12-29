@@ -114,7 +114,7 @@ export function CSVUploader({ onGoalsParsed }: CSVUploaderProps) {
                 </p>
               )}
             </div>
-            <Button variant="outline" size="sm" type="button">
+            <Button variant="outline" size="sm" type="button" className="pointer-events-none">
               Choose File
             </Button>
           </div>
